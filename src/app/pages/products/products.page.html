@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+  
+      <ion-segment (ionChange)="onFilterUpdate()">
+        <ion-segment-button value="all">
+          Product
+        </ion-segment-button>
+        <ion-segment-button value="favorites">
+          Favourite
+        </ion-segment-button>
+      </ion-segment>
+  
+    </ion-toolbar>
+    
+    <!-- [(ngModel)]="queryText" (ionChange)="updateSchedule()"  -->
+    <ion-toolbar>
+      <ion-searchbar placeholder="Search"></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+  
+    <ion-grid *ngIf="isLoading">
+      <ion-row>
+        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+          <ion-spinner color="primary"></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid
+      *ngIf="!isLoading && (!relevantPlaces || relevantProduct.length <= 0)"
+    >
+      <ion-row>
+        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+          <p>There are no bookable places right now, please come back later!</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid *ngIf="!isLoading && relevantProduct.length > 0">
+      <ion-row>
+        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ relevantProduct[0].name }}</ion-card-title>
+              <ion-card-subtitle
+                >{{ relevantProduct[0].price | currency }} /
+                Night</ion-card-subtitle
+              >
+            </ion-card-header>
+            <ion-img [src]="relevantProduct[0].imageUrl"></ion-img>
+            <ion-card-content>
+              <p>{{ relevantProduct[0].description }}</p>
+            </ion-card-content>
+            <div>
+              <ion-button
+                fill="clear"
+                color="primary"
+                [routerLink]="[
+                  '/',
+                  'product',
+                  relevantProduct[0].id
+                ]"
+              >
+                More
+              </ion-button>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" size-sm="8" offset-sm="2" text-center>
+          <ion-virtual-scroll
+            [items]="listedLoadedProduct"
+            approxItemHeight="70px"
+          >
+            <ion-item
+              [routerLink]="['/', 'product', product.id]"
+              detail
+              *virtualItem="let product"
+            >
+              <ion-thumbnail slot="start">
+                <ion-img [src]="product.imageUrl"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                <h2>{{ product.title }}</h2>
+                <p>{{ product.description }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-virtual-scroll>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  

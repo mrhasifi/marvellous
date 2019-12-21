@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/app/tabs/stokis"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{stokis?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding stokis-detail">
+  <div *ngIf="stokis" class="ion-text-center">
+    <img [src]="stokis.profilePic" [alt]="stokis.name">
+    <br>
+
+    <ion-button fill="clear" size="small" color="facebook">
+      <ion-icon name="logo-facebook" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" color="github">
+      <ion-icon name="logo-github" slot="icon-only"></ion-icon>
+    </ion-button>
+    <ion-button fill="clear" size="small" color="instagram">
+      <ion-icon name="logo-instagram" slot="icon-only"></ion-icon>
+    </ion-button>
+  </div>
+
+  <p>{{stokis?.about}}</p>
+</ion-content>
