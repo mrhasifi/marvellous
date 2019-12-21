@@ -9,7 +9,7 @@
           Product
         </ion-segment-button>
         <ion-segment-button value="favorites">
-          Favourite
+          Favourites
         </ion-segment-button>
       </ion-segment>
   
@@ -31,23 +31,23 @@
       </ion-row>
     </ion-grid>
     <ion-grid
-      *ngIf="!isLoading && (!relevantPlaces || relevantProduct.length <= 0)"
+      *ngIf="!isLoading && (!loadedProduct || loadedProduct.length >= 0)"
     >
       <ion-row>
         <ion-col size="12" size-sm="8" offset-sm="2" text-center>
-          <p>There are no bookable places right now, please come back later!</p>
+          <p>There are no products right now, please come back later!</p>
         </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-grid *ngIf="!isLoading && relevantProduct.length > 0">
+    <ion-grid *ngIf="!isLoading && loadedProduct.length > 0">
       <ion-row>
         <ion-col size="12" size-sm="8" offset-sm="2" text-center>
           <ion-card>
             <ion-card-header>
-              <ion-card-title>{{ relevantProduct[0].name }}</ion-card-title>
+              <ion-card-title>{{ loadedProduct[0].name }}</ion-card-title>
               <ion-card-subtitle
                 >{{ relevantProduct[0].price | currency }} /
-                Night</ion-card-subtitle
+                item</ion-card-subtitle
               >
             </ion-card-header>
             <ion-img [src]="relevantProduct[0].imageUrl"></ion-img>

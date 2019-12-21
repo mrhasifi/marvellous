@@ -26,13 +26,13 @@ export class ProductsService {
   }
 
   constructor(private authService: AuthService, private http: HttpClient) { }
-
+  // keU1gg04FiauxU0R
   fetchPlaces() {
     return this.authService.token.pipe(
       take(1),
       switchMap(token => {
         return this.http.get<{ [key: string]: ProductData }>(
-          `http://localhost:3000/product.json?auth=${token}`
+          `http://localhost:3000/product`
         );
       }),
       map(resData => {
@@ -42,7 +42,7 @@ export class ProductsService {
             product.push(
               new Product(
                 key,
-                resData[key].userId,
+                resData[key].id,
                 resData[key].name,
                 resData[key].description,
                 resData[key].imageUrl,
